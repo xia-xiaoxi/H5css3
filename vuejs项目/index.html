@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script type="text/javascript" src="js/vue.js"></script>
+	</head>
+	<body>
+		<article id="demo">
+			{{name}}
+		</article>
+	</body>
+	<script>
+	//vue构造函数
+		var demo = new Vue({
+			//这个对象里面的参数第一个是写一个选择器：el[selector]
+			el:"#demo",
+			data:{
+				//理解为angular $scope绑定数据到view层，data.name(vue)===$scope.name(angular)
+				name:'zz',
+				skill:'html5',
+				route:'',
+				url:''
+			}
+		})
+		console.log(demo.$el);
+		console.log(demo.$data);
+		
+		//法一、demo.data.url ="www.baidu.com" ;//data
+				demo.url = "www.baidu.com" ;//法二
+/*	$http.get().success(function(){
+			$scope.data = data;
+			
+		})*/
+	</script>
+</html>

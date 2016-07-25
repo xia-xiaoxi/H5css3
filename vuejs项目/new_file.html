@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>vue 的使用</title>
+		<script type="text/javascript" src="js/vue.js" ></script>
+	</head>
+	<body>
+		<article id="demo">
+			{{name}}
+		</article>
+	</body>
+	<script>
+		//vue 构造函数,可以理解为angular里面的控制器；
+		var demo = new Vue({
+			//这个对象里面的参数第一个是写一个选择器：el[selector];建议使用ID选择器
+			el:"#demo",
+			data:{
+				//理解为angular $scope 绑定数据到view 层，data.name(vue) === $scope.name(angular)
+				name:'yao',
+				skill:'chuinibi',
+				route:'',
+				url:''
+				
+			}
+		});
+		//demo.$data.url='www.baidu.com';
+		//第二个方法：
+		demo.url="www.baidu.com";//相当于在angular 是这样赋值 $scope.url="www.baidu.com"
+		demo.$data.example = 'example',//这里的$data 有设置或者获取的功能；
+		demo.$set('example1','example1');
+		console.log(demo.$el);
+		console.log(demo.$data);
+		/*//构造函数的方法
+		var obj ={}
+		var obj = new Object();*/
+		
+		
+	</script>
+</html>

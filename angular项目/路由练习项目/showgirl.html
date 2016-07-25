@@ -1,0 +1,85 @@
+<html ng-app="ezstuff">
+<head>
+	<meta charset="UTF-8"/>
+	<link rel="stylesheet" type="text/css" href="bootstrap.css"/>
+	<script src="angular-1.3.0.js"></script>
+	<style type="text/css">
+		div.active{border-top: 1px solid green;box-shadow: 2px 2px 2px greenyellow;}
+		img{width:280px;height: 400px;box-shadow:10px 10px 10px orangered}
+		body{margin-left: 50px;}
+		.box.active{;padding:30px;box-shadow: inset 0 0 100px red}
+	</style>
+</head>
+<body>
+	<div girlimg ng-controller="girlCtrl" class="box">
+		
+		<!--<button ng-click="view.shuffle();" class="btn-success">shuffle</button>
+		<div>name : {{view.obj.name}}</div>
+		<div>gender : {{view.obj.gender}}</div>
+		<div>age : {{view.obj.age}}</div>
+		<div>career : {{view.obj.career}}</div>
+		<div><img ng-src="{{view.obj.photo}}"></div>-->
+	</div>
+	<div girlimg></div>
+</body>
+<script>
+
+		var app = angular.module("ezstuff",[])
+	
+		/*下面用自定义标签显示controller中的所有实现的效果*/
+		app.directive('girlimg',[function(){/*注意取得自定义名字不能有大写字母*/
+				return{
+					restrict:'EA',
+					replace:false,//注意这里必须用false，因为下面给的模板都是独立的div,即div都是兄弟元素，并没有父元素，否则将没有显示效果；
+					transclude:true,
+					scope:{
+						
+					},
+					template:'<button ng-click="view.shuffle()" class="btn-success">切换</button>'
+					+'<div>名字:{{view.obj.name}}</div>'+'<div>性别:{{view.obj.gender}}</div>'+
+					'<div>年龄:{{view.obj.age}}</div>'+'<div>职业:{{view.obj.career}}</div>'+
+					'<div><img ng-src="{{view.obj.photo}}"></div>',
+		
+				link:function(scope,element,attrs){
+					scope.view = {
+						obj : {
+							name : "beautiful girl",
+							gender : "女",
+							age : 22,
+							career : "教师",
+							photo : "img/mei1.jpg"
+						},
+						shuffle : function(){
+								var repo = [
+									{name:"美女第一枚",gender:"女",age:48,career:"医生",photo:"img/mei10.jpg"},
+									{name:"美女第二枚",gender:"女",age:32,career:"服务员",photo:"img/mei11.jpg"},
+									{name:"美女第三枚",gender:"女",age:53,career:"护士",photo:"img/mei4.jpg"},
+									{name:"美女第四枚",gender:"女",age:48,career:"程序员",photo:"img/mei5.png"},
+									{name:"美女第五枚",gender:"女",age:36,career:"前台",photo:"img/mei6.jpg"},
+									{name:"美女第六枚",gender:"女",age:58,career:"金融",photo:"img/mei12.jpg"},
+									{name:"美女第七枚",gender:"女",age:63,career:"学生",photo:"img/mei8.jpg"}
+								];
+								var idx = Math.floor(Math.random()*repo.length);
+								console.log(idx)
+								scope.view.obj = repo[idx];
+						}
+					};
+					
+					angular.element(document.querySelectorAll('div')).addClass('active')
+					angular.element(document.querySelectorAll('.box')).addClass('active')
+					
+				}
+		
+		
+		
+			}
+			
+			
+			
+		}])
+		
+		
+		
+
+</script>
+</html>

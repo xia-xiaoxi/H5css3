@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>css3实现页面平滑过渡</title>
+		<meta http-equiv="X-UA-Compatible" content="IE-edge,chrome=1"/><!--高速IE使用最新版本的渲染模式，防止低版本不支持的情况-->
+		<meta name="viewport" content="width=device-width"/><!--强制宽度适用设备的宽度，而且不允许用户进行缩放-->
+		<link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Josefin+Slab:400,700"/>
+		<link rel="stylesheet" type="text/css" href="style/normalize.css"/>
+		<link rel="stylesheet" type="text/css" href="style/style.css"/>
+	</head>
+	<!--
+		总结：1，平滑过渡的页面是完全可以用css3来实现的；
+			  2，页面与页面之间的切换用的是transform:translate平移来实现的；
+			  3，当需要在移动的时候有一个过渡，只需要添加transition属性控制时间即可；
+			  4，当某动画不需要其他时间触发时，即一进入就可以看到动画，我们用animation来实现；这是与transform的本质区别。熟悉animation的用法		
+			  5，特殊的图标可以用font-face来实现。
+		      6，分辨率不同的时候，我们需要用@media来实现响应式布局；
+	-->
+	<body>
+		<div class="container">
+			<div class="st-container">
+				<!--主要name值一定要设置为一样的，否则单选框将变成复选框效果-->
+				<input type="radio" name="radio-set" id="st-control-1" checked="checked"/>
+				<a href="#st-panel-1">Serendipity</a>
+				<input type="radio" name="radio-set" id="st-control-2" />
+				<a href="#st-panel-2">Hapiness</a>
+				<input type="radio" name="radio-set" id="st-control-3" />
+				<a href="#st-panel-3">Tranquility</a>
+				<input type="radio" name="radio-set" id="st-control-4" />
+				<a href="#st-panel-4">Positivity</a>
+				<input type="radio" name="radio-set" id="st-control-5" />
+				<a href="#st-panel-5">Passion</a>
+				
+				<div class="st-scroll">
+					<!--因为要锚点跳转，所以此处的id必须与上面的hfef后面的值相同-->
+					<section class="st-panel" id="st-panel-1">
+						<div class="st-desc" data-icon="H"><!--此处的data-icon有妙用--></div>
+						<h2>Serendipity</h2>
+						<p>My life is a straight line, turning only for you.我的人生是一条直线, 转弯只是为了你。</p>
+					</section>
+					
+					<section class="st-panel st-color" id="st-panel-2">
+						<div class="st-desc" data-icon="2"><!--此处的data-icon有妙用--></div>
+						<h2>Serendipity</h2>
+						<p>The course of true love never did run smooth. ---Shakespeare 真诚的爱情永不是走一条平坦的道路的。</p>
+					</section>
+					
+					<section class="st-panel" id="st-panel-3">
+						<div class="st-desc" data-icon="B"><!--此处的data-icon有妙用--></div>
+						<h2>Serendipity</h2>
+						<p>Without music, life is a journey through a desert.没有音乐，生命就如荒漠之旅。</p>
+					</section>
+					
+					<section class="st-panel st-color" id="st-panel-4">
+						<div class="st-desc" data-icon="x"><!--此处的data-icon有妙用--></div>
+						<h2>Serendipity</h2>
+						<p>Life is a never - ending road, I walk, walk, keep walking.人生是一条没有尽头的路，我走着，走着，不断地走着。</p>
+					</section>
+					
+					<section class="st-panel st-color" id="st-panel-5">
+						<div class="st-desc" data-icon="C"><!--此处的data-icon有妙用--></div>
+						<h2>Serendipity</h2>
+						<p>Life is a mystery to solve not a problem to resolve.生命是一个等待你去理解的神秘事物，而不是等待你去解决的问题。</p>
+					</section>
+				</div>
+				
+				
+			</div>
+		</div>
+	</body>
+</html>

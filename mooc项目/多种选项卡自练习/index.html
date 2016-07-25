@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			*{padding: 0;margin: 0;list-style: none;font-size: 12px;}
+			.notice{
+				width: 298px;height: 98px;margin: 50px;border: 1px solid #eee;overflow: hidden;
+			}/*宽为300px*/
+			.notice-tit{
+				height: 27px;position: relative;
+			}
+			.notice-tit ul{
+				position: absolute;/*此处的绝对定位是为了不让左上角和右上角的li的边框与ul的边框重叠*/
+				width: 301px;/*覆盖父级的边框298+2+1*/
+				left: -1px;/*-1px是因为要覆盖父级的边框，即让自己的边框与父元素的边框重叠*/
+			}
+			.notice-tit li{
+				background: #AAAAAA;
+				float: left;
+				width: 58px;
+				height: 26px;
+				line-height: 26px;
+				text-align: center;
+				overflow: hidden;
+				background: #fff;
+				padding: 0 1px;
+				border-bottom: 1px solid #eee;
+			}
+			.notice-tit li.selected{
+				background: #fff;
+				border-bottom-color: #fff;
+				border-left: 1px solid #eee;
+				border-right: 1ps solid #eee;
+				padding: 0;/*设置被选中的li padding值为0，是为了不使其被挤下去*/			
+				font-weight: bolder;	
+			}
+			.notice-tit ul li a:link,.notice-tit ul li a:visited{
+				text-decoration: none;
+				color: black;
+			}
+			.notice-tit ul li a:hover{color:#f90 ;}
+		</style>
+	</head>
+	<body>
+		<div id="notice" class="notice">
+			<div class="notice-tit" id="notice-tit">
+				<ul>
+					<li><a href="#">人民网</a></li>
+					<li><a href="#">新华网</a></li>
+					<li><a href="#">央视网</a></li>
+					<li><a href="#">国际在线</a></li>
+					<li class="selected"><a href="#">中国日报网</a></li>
+					
+				</ul>
+			</div>
+			
+			
+		</div>
+	</body>
+</html>
