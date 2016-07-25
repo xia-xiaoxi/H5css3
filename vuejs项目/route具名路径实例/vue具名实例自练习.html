@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="bootstrap.css"/>
+		<link rel="stylesheet" type="text/css" href="style.css"/>
+		<script src="vue.js"></script>
+		<script src="vue-router.js"></script>
+		<style>
+			#app{width: 1000px;height: 700px;border: 1px solid black;box-shadow: 0px 0px 50px lightcoral,inset 0px 0px 100px darkcyan;margin: 30px auto;}
+			h1{text-align: center;text-shadow:5px 5px 5px red;font-weight: bold;}
+			button{float: left;margin-left: 280px;}
+			.girlimg{width: 1000px;height: 480px;clear: both;}
+			.showword{font-size: 40px;text-align: center;color: red;font-weight: bold;text-shadow:5px 5px 5px black;}
+		</style>
+	</head>
+	<body>
+		<div id="app">
+			<h1>vue实战之美女特效大展示</h1>
+			<button class="btn-success" v-link = "{path:'/home1'}">第一组特效</button>
+			<button class="btn-success" v-link = "{path:'/home2'}">第二组特效</button>
+			<router-view></router-view>
+			
+			<template id="girlImg1">
+				<div  class="girlimg">
+					<figure class="fg1">
+					<a v-link = "{name:'girl', params: {id: '1'}}"><img src="../img/mei1.jpg"/></a>
+					<figcaption>
+					<h2>beautiful</h2>
+					<p>凋谢是真实</p>
+					<p>盛开只是一种过去</p>
+					</figcaption>
+					</figure>
+				
+					<figure class="fg6">
+						<a v-link = "{path:'/home1/girl/2'}"><img src="../img/mei12.jpg"/></a>
+						<figcaption>
+							<h2>beautiful girl</h2>
+							<p>凋谢是真实</p>
+							<p>盛开只是一种过去</p>
+							<div></div>
+							<div></div>
+							<div></div>
+							<div></div>
+						</figcaption>
+					</figure>
+					
+					<figure class="fg3">
+						<a v-link = "{path:'/home1/girl/3'}"><img src="../img/mei3.jpg"/></a>
+						<figcaption>
+							<h2>beautiful</h2>
+							<p>凋谢是真实</p>
+							<p>盛开只是一种过去</p>
+						</figcaption>
+					</figure>
+				</div>
+				<div>
+					<router-view></router-view>
+				</div>
+			</template>
+			<template id="showword">
+					<div class="showword">
+						这是第{{$route.params.id}}个美女图片
+					</div>
+			</template>
+			<template id="girlImg2">
+				<div  class="girlimg">
+					<figure class="fg4">
+						<img src="../img/mei4.jpg"/>
+						<figcaption>
+							<h2>beautiful girl</h2>
+							<p>凋谢是真实</p>
+							<p>盛开只是一种过去</p>
+							<div></div>
+						</figcaption>
+					</figure>
+					<figure class="fg5">
+						<img src="../img/mei11.jpg"/>
+						<figcaption>
+							<h2>beautiful girl</h2>
+							<p>凋谢是真实</p>
+							<p>盛开只是一种过去</p>
+							<div></div>
+							<div></div>
+						</figcaption>
+					</figure>
+					
+					<figure class="fg6">
+						<img src="../img/mei12.jpg"/>
+						<figcaption>
+							<h2>beautiful girl</h2>
+							<p>凋谢是真实</p>
+							<p>盛开只是一种过去</p>
+							<div></div>
+							<div></div>
+							<div></div>
+							<div></div>
+						</figcaption>
+					</figure>
+				
+				</div>	
+			</template>
+			
+			
+		</div>
+		
+	</body>
+	<script>
+		var  Home1 = Vue.extend({
+			template:'#girlImg1'
+		})
+		var  Home2 = Vue.extend({
+			template:'#girlImg2'
+		})
+		var Showword = Vue.extend({
+			template:'#showword'
+		})
+		
+		var router = new VueRouter();
+		router.map({
+			'/home1':{
+				component:Home1,
+				subRoutes:{
+					'girl/:id':{
+						name:'girl',
+						component:Showword
+					}
+				}
+			},
+			'home2':{
+				component:Home2,
+			}
+			
+		})
+		
+		var APP = Vue.extend();
+		router.start(APP,'#app')
+		
+		
+	</script>
+</html>

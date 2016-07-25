@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="bootstrap.css"/>
+		<script src="vue.js"></script>
+		<script src="vue-router.js"></script>
+		<style type="text/css">
+			.box{box-shadow:5px 5px 10px orangered}
+			h1{text-shadow: 5px 5px 5px yellowgreen;text-align: center;}
+			pre{text-align: center;}
+			button{margin: 0 auto;margin-left: 300px;}
+		</style>
+	</head>
+	<body id="app">
+		<div>
+			<!--使用v-link跳转到指定路径-->
+		    <button class="btn-success" v-link="{ path: '/home'}">主页</button>
+		    <button class="btn-success" v-link="{ path: '/about'}">副页</button>
+		</div>
+		<!--在页面上使用<router-view></router-view>标签，它用于渲染匹配的组件-->
+		<router-view></router-view>
+	</body>
+	<script>
+		//然后创建两个组件构造器Home和About：
+		var Home = Vue.extend({
+		    template: '<div class="box"><h1>Home</h1><pre>{{msg}}</pre></div>',
+		    data: function() {
+		        return {
+		            msg: 'happiness can be found even in the darkest of times. - albus dumbledore。即使在最黑暗的日子里，也能寻到幸福'
+		        }
+		    }
+		})
+	/*	var Home =vue.extend({
+			template:{{}}
+			data:function(){
+				return{
+					msg:
+				}
+			}
+		})*/
+		
+		//Aout组件
+		var About = Vue.extend({
+		    template: '<div class="box"><h1>About</h1><pre>hand and catch you fell out of the tears, but not cut the fundus you伸手，接住你眼角垂落的泪滴，却截不住你眼底的悲伤！</pre></div>'
+		})
+	/*	
+		var About = Vue.extend({
+			template:
+		})
+		*/
+		//调用构造器VueRouter，创建一个路由器实例router。
+		var router = new VueRouter()
+		//var router = new VueRouter()
+		//映射路由，调用router的map方法映射路由，每条路由以key-value的形式存在，key是路径，value是组件。例如：'/home'是一条路由的key，它表示路径；{component: Home}则表示该条路由映射的组件。
+		
+		router.map({
+		    '/home': { component: Home },
+		    '/about': { component: About }
+		    
+		})
+	/*	router.map({
+			'/home':{
+				component:Home,
+			},
+			'/about':{
+				component:About
+			}
+		})*/
+		//默认跳转的组件。
+		/*router.redirect({
+					    '/': '/Home'
+					})*/
+		
+		//路由器的运行需要一个根组件，router.start(App, '#app') 表示router会创建一个App实例，并且挂载到#app元素。注意：使用vue-router的应用，不需要显式地创建Vue实例，而是调用start方法将根组件挂载到某个元素。
+		var App = Vue.extend({})
+		router.start(App, '#app')
+			
+	/*	var App = Vue.extend();
+		router.start(APP,'#app')*/
+		
+		
+		
+	</script>
+</html>

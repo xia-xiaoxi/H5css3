@@ -1,0 +1,116 @@
+
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="bootstrap.css"/>
+	</head>
+
+	<body>
+		<div id="app">
+				<div class="page-header">
+					<h2>路由</h2>
+				</div>
+				
+				<div class="list-group">
+					<a class="list-group-item" v-link="{ path: '/home'}">主页</a>
+					<a class="list-group-item" v-link="{ path: '/about'}">相关页面</a>
+				</div>
+				
+				<div class="panel-body">
+					<router-view></router-view>
+				</div>
+		</div>
+
+		<template id="home">
+			<div>
+				<h1>主页</h1>
+				<p>{{msg}}</p>
+			</div>
+			<div>
+				<ul class="nav nav-tabs">
+					<li><a v-link="{ path: '/home/news'}">悲伤句子</a></li>
+					<li><a v-link="{ path: '/home/message'}">优美句子</a></li>
+				</ul>
+				<router-view></router-view>
+			</div>
+		</template>
+
+		<template id="news">
+			<ul>
+				<li>happiness can be found even in the darkest of times. - albus dumbledore。即使在最黑暗的日子里，也能寻到幸福。</li>
+				<li>hand and catch you fell out of the tears, but not cut the fundus you伸手，接住你眼角垂落的泪滴，却截不住你眼底的悲伤！
+</li>
+				<li>follow your heart, but be quiet for a while first. learn to trust your heart. 跟着感觉走，静静地。学着去相信自己的内心。</li>
+			</ul>
+		</template>
+		
+		<template id="message">
+			<ul>
+				<li>first i need your hand ,then forever can begin——我需要牵着你的手，才能告诉你什么是永远</li>
+				<li>fallen into the trap,for you are too greedy,it's not because of others' cunning.会上当，不是因为别人太狡猾，而是因为自己太贪.</li>
+				<li>fake friends never betray in front of you. they always do it behind you. 假朋友从不会当面背叛你，都是背后。</li>
+			</ul>
+		</template>
+
+		<template id="about">
+			<div>
+				<h1>相关</h1>
+				<p>This is the tutorial about vue-router.</p>
+			</div>
+		</template>
+
+	</body>
+	<script src="vue.js"></script>
+	<script src="vue-router.js"></script>
+	<script>
+		var Home = Vue.extend({
+			template: '#home',//直接连接到当前页面已经定义好的标签id;
+			data: function() {
+				return {
+					msg: 'Hello, vue router!'
+				}
+			}
+		})
+
+		var News = Vue.extend({
+			template: '#news'
+		})
+
+		var Message = Vue.extend({
+			template: '#message'
+		})
+
+		var About = Vue.extend({
+			template: '#about'
+		})
+
+		var router = new VueRouter()
+		router.redirect({//默认跳转的页面
+			'/': '/home'
+		})
+		router.map({
+			'/home': {
+				component: Home,
+				// 定义子路由，此处是关键
+				subRoutes: {//西面的写法一句
+					'/news': {
+						component: News
+					},
+					'/message': {
+						component: Message
+					}
+				}
+			},
+			'/about': {
+				component: About
+			}
+		})
+
+		var App = Vue.extend({})
+		router.start(App, '#app')
+	</script>
+
+</html>

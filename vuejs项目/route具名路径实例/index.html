@@ -1,0 +1,146 @@
+
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="bootstrap.css"/>
+	</head>
+
+	<body>
+		<div id="app">
+			<div class="page-header">
+				<h2>主页</h2>
+			</div>
+			
+			<div class="list-group">
+				<a class="list-group-item" v-link="{ path: '/home'}">Home</a>
+				<a class="list-group-item" v-link="{ path: '/about'}">About</a>
+			</div>
+			<div class="panel-body">
+				<router-view></router-view>
+			</div>
+			
+		</div>
+
+		<template id="home">
+			<div>
+				<h1>Home</h1>
+				<p>{{msg}}</p>
+			</div>
+			<div>
+				<ul class="nav nav-tabs">
+					<li>
+						<a v-link="{ name: 'news'}">News</a>
+					</li>
+					<li>
+						<a v-link="{ path: '/home/message'}">Messages</a>
+					</li>
+				</ul>
+				<router-view></router-view>
+			</div>
+		</template>
+
+		<template id="news">
+			<div>
+				<ul>
+					<li>
+						<a v-link="{ name: 'detail', params: {id: '01'} }">News 01</a>
+					</li>
+					<!--{id: '01'}是为了告诉newsDetail中当前a的id名字-->
+					<li>
+						<a v-link="{ path: '/home/news/detail/02'}">News 02</a>
+					</li>
+					<li>
+						<a v-link="{ path: '/home/news/detail/03'}">News 03</a>
+					</li>
+				</ul>
+				<div>
+					<router-view></router-view>
+				</div>
+			</div>
+		</template>
+		<template id="newsDetail">
+			<div>
+				News Detail - {{$route.params.id}} ......
+			</div>
+		</template>
+
+		<template id="message">
+			<ul>
+				<li>Message 01</li>
+				<li>Message 02</li>
+				<li>Message 03</li>
+			</ul>
+		</template>
+
+		<template id="about">
+			<div>
+				<h1>About</h1>
+				<p>This is the tutorial about vue-router.</p>
+			</div>
+		</template>
+
+	</body>
+	<script src="vue.js"></script>
+	<script src="vue-router.js"></script>
+	<script>
+		var Home = Vue.extend({
+			template: '#home',
+			data: function() {
+				return {
+					msg: 'Hello, vue router!'
+				}
+			}
+		})
+
+		var News = Vue.extend({
+			template: '#news'
+		})
+
+		var NewsDetail = Vue.extend({
+			template: '#newsDetail'
+		})
+
+		var Message = Vue.extend({
+			template: '#message'
+		})
+
+		var About = Vue.extend({
+			template: '#about'
+		})
+
+		var router = new VueRouter()
+		router.redirect({
+			'/': '/home'
+		})
+		router.map({
+			'/home': {
+				component: Home,
+				subRoutes: {
+					'/news': {
+						name: 'news',
+						component: News,
+						subRoutes: {
+							'detail/:id': {
+								name: 'detail',
+								component: NewsDetail
+							}
+						}
+					},
+					'/message': {
+						component: Message
+					}
+				}
+			},
+			'/about': {
+				component: About
+			}
+		})
+
+		var App = Vue.extend({})
+		router.start(App, '#app')
+	</script>
+
+</html>
