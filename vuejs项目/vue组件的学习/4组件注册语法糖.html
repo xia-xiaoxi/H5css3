@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="bootstrap.css"/>
+		<script src="vue.js"></script>
+		<script src="vue-router.js"></script>
+	</head>
+	<body>
+		<div id="app">
+			<mycomponent1></mycomponent1>
+		</div>
+		
+		<div id="app1">
+			<mycomponent2></mycomponent2>
+			<mycomponent3></mycomponent3>
+		</div>
+	</body>
+	<script>
+		/*之前的组件注册的方式有些繁琐，Vue.js为了简化这个过程，提供了注册语法糖。
+使用Vue.component()直接创建和注册组件*/
+			
+		Vue.component('mycomponent1',{
+			template:'<div>我是语法糖里面注册的组件</div>'
+		})/*Vue.component()的第1个参数是标签名称，第2个参数是一个选项对象，使用选项对象的template属性定义组件模板。*/
+		
+		var vm1 = new Vue({
+						    el: '#app'
+						})
+		
+		//在选项对象的components属性中实现局部注册：
+		
+		var vm2 = new Vue({
+			
+			el:'#app1',
+			components:{
+				// 局部注册，my-component2是标签名称
+				'mycomponent2':{
+					template:'<div>我是语法糖里面注册的第一个局部组件</div>'
+				},
+				'mycomponent3':{
+					template:'<div>我是语法糖里面注册的第二个局部组件</div>'
+				}
+			}
+			
+		})
+		
+		
+		
+		
+	
+		
+	</script>
+</html>

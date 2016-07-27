@@ -7,33 +7,33 @@
 		<title></title>
 		<link rel="stylesheet" type="text/css" href="bootstrap.css"/>
 	</head>
-
+	
 	<body>
 		<div id="app">
-			<div class="row">
-				<div class="col-xs-offset-2 col-xs-8">
+			
 					<div class="page-header">
-						<h2>Router Basic - 04</h2>
+						<h2>vue路由对象解析</h2>
 					</div>
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-xs-2 col-xs-offset-2">
 					<div class="list-group">
 						<a class="list-group-item" v-link="{ path: '/home'}">Home</a>
 						<a class="list-group-item" v-link="{ path: '/about'}">About</a>
 					</div>
-				</div>
-				<div class="col-xs-6">
-					<div class="panel">
-						<div class="panel-body">
-							<router-view></router-view>
-						</div>
+					<div class="panel-body">
+						<router-view></router-view>
 					</div>
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-xs-offset-2 col-xs-8">
+					<!--
+						$route.path 
+							字符串，等于当前路由对象的路径，会被解析为绝对路径，如 "/home/news" 。
+						$route.params 
+							对象，包含路由中的动态片段和全匹配片段的键值对
+						$route.query 
+							对象，包含路由中查询参数的键值对。例如，对于 /home/news/detail/01?favorite=yes ，会得到 		$route.query.favorite == 'yes' 。
+						$route.router 
+							路由规则所属的路由器（以及其所属的组件）。
+						$route.matched 
+							数组，包含当前匹配的路径中所包含的所有片段所对应的配置参数对象。
+						$route.name 
+							当前路径的名字，如果没有使用具名路径，则名字为空。-->
 					<div class="well">
 						<p>当前路径：<code>{{$route.path}}</code></p>
 						<p>当前参数：<code>{{$route.params | json}}</code></p>
@@ -41,8 +41,7 @@
 						<p>路由查询参数：<code>{{$route.query | json}}</code></p>
 						<!--<p>路由匹配项：<code>{{$route.matched | json}}</code></p>-->
 					</div>
-				</div>
-			</div>
+				
 		</div>
 
 		<template id="home">
@@ -142,9 +141,9 @@
 		})
 
 		var router = new VueRouter()
-		router.redirect({
+		/*router.redirect({
 			'/': '/home'
-		})
+		})*/
 		router.map({
 			'/home': {
 				component: Home,

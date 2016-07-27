@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="bootstrap.css"/>
+		<script src="vue.js"></script>
+		<script src="vue-router.js"></script>
+	</head>
+	<body>
+		<div id="app">
+			<my-component></my-component>
+		</div>
+		
+		<div id="app1">
+			<my-component></my-component>
+		</div>
+		
+		<my-component></my-component><!--此自定义的标签并不在创建的vue实例下，所以不起作用-->
+		
+	</body>
+	<script>
+		/*1. Vue.extend()是Vue构造器的扩展，调用Vue.extend()创建的是一个组件构造器，而不是一个具体的组件实例。 
+		2. Vue.extend()构造器有一个选项对象，选项对象的template属性用于定义组件要渲染的HTML。 
+		3. 使用Vue.component()注册组件时，需要提供2个参数，第1个参数时组件的标签，第2个参数是组件构造器。 
+		4. Vue.component()方法内部会调用组件构造器，创建一个组件实例。 
+		5. 组件应该挂载到某个Vue实例下，否则它不会生效。*/
+	
+	
+		//创建组件构造器
+		var myComponent = Vue.extend({
+			template:"<div>创建一个组件</div>"
+		})
+		
+		//注册组件，并指定组件的标签，组件的HTML标签为<my-component>
+		Vue.component('my-component',myComponent)//ue.component是全局注册，后面有局部注册，稍后分析
+		
+		//挂载到某个Vue实例下，否则它不会生效
+		new Vue({
+			el:"#app"//注意，若需要限定某个<my-component></my-component>标签不生效，则可以将其不放置于#app的作用域下面即可；如下示例：
+		})
+		
+		new Vue({
+			el:"#app1"
+		})
+		
+		
+	</script>
+</html>

@@ -25,7 +25,7 @@
 			<template id="girlImg1">
 				<div  class="girlimg">
 					<figure class="fg1">
-					<a v-link = "{name:'girl', params: {id: '1'}}"><img src="../img/mei1.jpg"/></a>
+					<a v-link = "{name:'girl', params: {num: '1'}}"><img src="../img/mei1.jpg"/></a><!--<a v-link="{ name: 'girl'}">img</a>和<a v-link="{ name: 'girl', params: {num: '01'} }">News 01</a>这两行HTML代码，使用了用了具名路径。-->
 					<figcaption>
 					<h2>beautiful</h2>
 					<p>凋谢是真实</p>
@@ -61,7 +61,7 @@
 			</template>
 			<template id="showword">
 					<div class="showword">
-						这是第{{$route.params.id}}个美女图片
+						这是第{{$route.params.num}}个美女图片
 					</div>
 			</template>
 			<template id="girlImg2">
@@ -122,7 +122,7 @@
 			'/home1':{
 				component:Home1,
 				subRoutes:{
-					'girl/:id':{
+					'girl/:num':{
 						name:'girl',
 						component:Showword
 					}
