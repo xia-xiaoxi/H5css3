@@ -1,0 +1,366 @@
+/*引入特殊的字体*/
+@font-face{
+	font-family:"Raphaelicons";
+	/*多个格式是为了让浏览器更好的识别*/
+	src: url('../fonts/raphaelicons-webfont.eot') format('eot'),
+		url('../fonts/raphaelicons-webfont.ttf') format('truetype'),
+		url('../fonts/raphaelicons-webfont.woff') format('woff'),
+		url('../fonts/raphaelicons-webfont.svg') format('svg');
+		font-weight: normal;
+		font-style: normal;
+}
+
+
+body{
+	font-family:Georgia,serif;
+	background:#ddd;
+	font-weight:400;
+	font-size: 15px;
+	color: #333;
+	overflow:hidden;
+	-webkit-font-smoothing:antialiased;/*设置字体的抗锯齿或者说光滑度的属性。很少用*/
+}
+a{
+	text-decoration: none;
+	color: #555;
+}
+.clr{
+	width: 0;
+	height: 0;
+	overflow: hidden;
+	clear: both;
+	padding: 0;
+	margin: 0;
+}
+.st-container{
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	left: 0;
+	top: 0;
+	font-family: "Josefin Slab","Myriad Pro",Arial,snas-serif;
+	
+}
+.st-container>input,
+.st-container>a{/*设置input和a一样大小*/
+	width: 20%;	
+	height: 34px;
+	line-height: 34px;
+	position: fixed;
+	bottom: 0;/*将导航栏固定在底部*/
+	
+}
+.st-container>input{
+	/*display: none;
+	position: absolute;
+	left: -99999px;
+	上面两种方法都能隐藏input;但是都不满足我们的要求，因为我们需要隐藏它，但我们又需要其占位，因为我们需要选择它
+	所有此处用：
+	* * */
+	opacity:0;
+	z-index: 1000;;
+	/*点击的时候需要先判断input选择，再改变a的背景色*/
+	
+}
+
+.st-container>a{
+	z-index: 10;;	
+	font-weight: 700;
+	font-size: 16px;
+	background: #e23a6e;
+	text-align: center;
+	color: #FFFFFF;
+	text-shadow: 1px 1px 1px rgba(151,24,64,0.2);
+}
+/*以下是底部每一个导航*/
+#st-control-1,#st-control-1+a{
+	left: 0%;
+}
+#st-control-2,#st-control-2+a{
+	left: 20%;
+}
+#st-control-3,#st-control-3+a{
+	left: 40%;
+}
+#st-control-4,#st-control-4+a{
+	left: 60%;
+}
+#st-control-5,#st-control-5+a{
+	left: 80%;
+}
+
+.st-container input:checked+a,
+.st-container input:checked:hover+a/*此句表明滑过若当前被选中了，则其颜色滑过时也不变色*/
+{
+	background: #821134;/*被选中的颜色*/
+}
+
+.st-container input:checked+a:after{/*当前选中的input下面的a添加一个伪类元素用来显示三角形*/
+	content: "";/*内容必须写，否则没效果*/
+	width: 0;
+	height: 0;
+	overflow: hidden;
+	border: 20px solid transparent;
+	border-bottom-color: #821134;
+	position: absolute;
+	bottom: 100%;
+	left: 50%;
+	margin-left: -20px;/*让其居中，因为border是20*/
+}
+
+.st-container input:hover+a{
+	background: #ad244f;/*滑过的颜色*/
+}
+
+/*=============内容区================*/
+.st-scroll,
+.st-panel{
+	width:100%;
+	height: 100%;
+	position: relative;
+}
+
+.st-scroll{
+	left: 0;
+	top: 0;
+	-webkit-transform: translate3d(0,0,0);/*translate是平移，因为我们最终是要移动section来达到滑动的效果；而加上3d是因为当我们这样写的时候，浏览器会开启渲染加速的功能，方便我们浏览*/
+	-webkit-transition: all 0.6s ease-in-out;/*过渡时间*/	
+}
+
+.st-panel{
+	overflow: hidden;
+	background:#FFFFFF;
+}
+
+#st-control-1:checked ~ .st-scroll{
+	/*此处用~只是跟在其后面的,而不限制是否是紧跟的*/
+	-webkit-transform: translateY(0);
+	
+}
+#st-control-2:checked ~ .st-scroll{
+	/*此处用~只是跟在其后面的,而不限制是否是紧跟的*/
+	-webkit-transform: translateY(-100%);
+	
+}
+#st-control-3:checked ~ .st-scroll{
+	/*此处用~只是跟在其后面的,而不限制是否是紧跟的*/
+	-webkit-transform: translateY(-200%);
+	
+}
+#st-control-4:checked ~ .st-scroll{
+	/*此处用~只是跟在其后面的,而不限制是否是紧跟的*/
+	-webkit-transform: translateY(-300%);
+	
+}
+#st-control-5:checked ~ .st-scroll{
+	/*此处用~只是跟在其后面的,而不限制是否是紧跟的*/
+	-webkit-transform: translateY(-400%);
+	
+}
+
+/*三角区域*/
+.st-desc{
+	width: 200px;
+	height: 200px;
+	background: #E23A6E;
+	position: absolute;
+	left: 50%;
+	top:0;
+	margin-left: -100px;
+	-webkit-transform: translateY(-50%) rotate(45deg);
+	
+}
+/*为三角区域添加图形文字样式*/
+[data-icon]:after{
+	content: attr(data-icon);/*插入值用来转化成特定的图片*/
+	width: 200px;
+	height: 200px;
+	color: white;
+	font-size: 90px;
+	text-align: center;
+	line-height: 200px;
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	margin: -100px 0 0 -100px;/*让盒子居中*/
+	-webkit-transform:rotate(-45deg) translateY(25%);/*让盒子转回来*/
+	font-family: "Raphaelicons";/*添加自定义字体将内容里面的字体转换成图片*/
+	text-shadow: 1px 1px 1px rgba(151,24,64,0.2);
+
+
+}
+/*h2文本样式的设置*/
+.st-panel h2{
+	color: #E23A6E;
+	font-size: 54px;
+	line-height: 50px;
+	text-align: center;
+	font-weight: 900;
+	width: 80%;
+	position: absolute;
+	left: 10%;
+	top: 50%;
+	margin-top:-70px;
+	text-shadow: 1px 1px 1px rgba(151,24,64,0.2);
+	-webkit-backface-visibility: hidden;/*隐藏被旋转元素的背面*/
+	
+}
+
+/*改变当前被选中的压面中的h2标签的运动*/
+#st-control-1:checked ~ .st-scroll #st-panel-1 h2,
+#st-control-2:checked ~ .st-scroll #st-panel-2 h2,
+#st-control-3:checked ~ .st-scroll #st-panel-3 h2,
+#st-control-4:checked ~ .st-scroll #st-panel-4 h2,
+#st-control-5:checked ~ .st-scroll #st-panel-5 h2{
+	-webkit-animation: moveDown 0.6s ease-in-out 0.2s backwards;/*backwards表示动画在播放之前处于开始状态*/
+	
+}
+@-webkit-keyframes moveDown{
+	from{
+		-webkit-transform: translateY(-40px);
+		opacity: 0;
+	}
+	to{
+		-webkit-transform: translateY(0px);
+		opacity: 1;
+	}
+	
+}
+
+/*p段落样式*/
+.st-panel p{
+	position: absolute;
+	width: 50%;
+	left: 25%;
+	top: 50%;
+	font-size: 16px;
+	line-height: 22px;
+	padding: 0;
+	text-align: center;
+	-webkit-backface-visibility: hidden;
+	color: #8b8b8b;
+	margin-top: 10px;
+}
+
+/*改变当前被选中的压面中的p标签的运动*/
+#st-control-1:checked ~ .st-scroll #st-panel-1 p,
+#st-control-2:checked ~ .st-scroll #st-panel-2 p,
+#st-control-3:checked ~ .st-scroll #st-panel-3 p,
+#st-control-4:checked ~ .st-scroll #st-panel-4 p,
+#st-control-5:checked ~ .st-scroll #st-panel-5 p{
+	-webkit-animation: moveUp 0.6s ease-in-out 0.2s backwards;/*backwards表示动画在播放之前处于开始状态*/
+	
+}
+
+@-webkit-keyframes moveUp{
+	from{
+		-webkit-transform: translateY(40px);
+		opacity: 0;
+	}
+	to{
+		-webkit-transform: translateY(0px);
+		opacity: 1;
+	}
+	
+}
+/*改变将class名为st-color的页面背景色和三角的颜色及其中的字体颜色设置*/
+.st-color{
+	background: #fa96b5;/*将class名为st-color的页面背景全部变为粉色*/
+}
+
+.st-color .st-desc{
+	background: #fff;/*再改变加了粉色背景的section的页面中三角区域的背景颜色改变为白色*/
+}
+
+.st-color [data-icon]:after{
+	color: #FA96B5;/*[data-icon]:after为图标；上面将三角图标背景变为白色，那么此处将三角区域中的图标改变成粉色颜色*/
+}
+.st-color h2{
+	color: #fff;/*同时因为背景色变为粉色，那么将其中的h2变为白色*/
+	text-shadow: 1px 1px 1px rgba(0,0,0,0.1);
+}
+
+.st-color p{
+	color: rgba(255,255,255,0.8);
+}
+
+/*========================响应式设置=======================*/
+/*屏幕尺寸小于520px时*/
+@media screen and (max-width:520px)
+{
+	.st-panel h2{
+		font-size: 42px;
+	}
+	/*设置p内容的大小和位置*/
+	.st-panel p{
+		width: 90%;
+		left: 10%;
+		margin-top: 0;
+	}
+	.st-container{
+		font-size: 12px;/*导航栏的字体大小*/
+	}
+	
+	
+}
+/*屏幕尺寸小于360px时*/
+@media screen and (max-width:360px)
+{
+	.st-panel h2{
+		font-size: 30px;
+	}
+	.st-panel p{
+		width: 90%;
+		left: 10%;
+		margin-top: 0;
+	}
+	.st-container>a{
+		font-size: 10px;
+	}
+	.st-desc{
+		width: 120px;
+		height: 120px;
+		margin-left: -60px;
+	}
+	[data-icon]:after
+	{
+		font-size: 60px;
+		-webkit-transform:rotate(-45deg) translateY(15%);
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

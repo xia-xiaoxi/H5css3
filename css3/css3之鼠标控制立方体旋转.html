@@ -1,0 +1,119 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>3D立方体旋转动画</title>
+<style type="text/css">
+/*@keyframes rotate{
+	0%{transform:rotateX(0deg) rotateY(0deg);}
+	100%{transform:rotateX(360deg) rotateY(360deg);}
+	}
+@-webkit-keyframes rotate{
+	0%{transform:rotateX(0deg) rotateY(0deg);}
+	100%{transform:rotateX(360deg) rotateY(360deg);}
+	}*/
+html{background:linear-gradient(#ff0 0%,#3F9 80%);height:100%;}
+.wrap{margin:150px auto;perspective:1000px;width:200px;height:200px;}
+.cube{margin:auto;width:200px;height:200px;position:relative;transform-style:preserve-3d;transform: translateZ(200px);}
+/*animation:rotate 20s infinite linear;*/
+.cube > div{width:100%;height:100%;position:absolute;background-color:coral;opacity:.9;border:1px solid #fff;color:#fff;font-size:36px;font-family:"微软雅黑";font-weight:bold;text-align:center;line-height:200px;transition:transform .2s ease-in;-webkit-transition:transform .2s ease-in;}
+/*.cube > span{display:block;width:100px;height:100px;border:1px solid #000;background-color:#999;position:absolute;top:50px;left:50px;}*/
+
+.cube .out-front{transform:translateZ(100px);-moz-transform:translateZ(100px);-webkit-transform:translateZ(100px);}
+.cube .out-back{transform:translateZ(-100px) rotateY(180deg);-moz-transform:translateZ(-100px) rotateY(180deg);-webkit-transform:translateZ(-100px) rotateY(180deg)}
+.cube .out-left{transform:translateX(-100px) rotateY(-90deg);-moz-transform:translateX(-100px) rotateY(-90deg);-webkit-transform:translateX(-100px) rotateY(-90deg);}
+.cube .out-right{transform:translateX(100px) rotateY(90deg);-moz-transform:translateX(100px) rotateY(90deg);-webkit-transform:translateX(100px) rotateY(90deg);}
+.cube .out-top{transform:translateY(-100px) rotateX(90deg);-moz-transform:translateY(-100px) rotateX(90deg);-webkit-transform:translateY(-100px) rotateX(90deg);}
+.cube .out-bottom{transform:translateY(100px) rotateX(-90deg);-moz-transform:translateY(100px) rotateX(-90deg);-webkit-transform:translateY(100px) rotateX(-90deg);}
+
+
+
+
+</style>
+</head>
+
+<body>
+<div class="wrap">
+      <div class="cube">
+            <div class="out-front"></div>
+            <div class="out-back"></div>
+            <div class="out-left"></div>
+            <div class="out-right"></div>
+            <div class="out-top"></div>
+            <div class="out-bottom"></div>
+          
+      </div>
+</div>
+</body>
+<script src="jquery-1.12.0.js"></script>
+<script>
+window.onload = function(){
+	
+		var Cube = document.getElementsByClassName('cube')
+		console.log(Cube)
+		 var mouseValue = {};
+	        mouseValue.nowX;	//鼠标移动的时候获得当前页面X轴坐标
+	        mouseValue.nowY;	//鼠标移动的时候获得当前页面Y轴坐标
+	        mouseValue.lastX;	//每次提起鼠标获得当前页面X轴坐标
+	        mouseValue.lastY;	//每次提前鼠标获得当前页面Y轴坐标
+	        mouseValue.minusX=0;	//两次X轴坐标差
+	        mouseValue.minusY=0;	//两次Y轴坐标差
+	        mouseValue.roY=0;		//Y轴的rotate()偏移量
+	        mouseValue.roX=0;		//X轴的rotate()偏移量
+	        mouseValue.trZ=200;
+	        mouseValue.timer1;		//定时器
+		document.onmousedown=function(ev){
+			ev = ev||window.event ;
+			console.log(ev.clientX,ev.clientY)
+			mouseValue.lastX = ev.clientX;
+			mouseValue.lastY = ev.clientY
+			console.log(mouseValue.lastX,mouseValue.lastY);
+			
+				document.onmousemove=function(ev){
+					ev = ev||window.event
+					mouseValue.nowX = ev.clientX;
+					mouseValue.nowY = ev.clientY
+					
+					mouseValue.minusX = mouseValue.nowX - mouseValue.lastX;
+					mouseValue.minusY = mouseValue.nowY - mouseValue.lastY;
+						console.log(mouseValue.minusX,mouseValue.minusY)
+						if(mouseValue.minusX<=0&&mouseValue.minusY>=0||mouseValue.minusY<0&&mouseValue.minusX>0){
+							
+							mouseValue.roX += mouseValue.minusX*0.2;
+							mouseValue.roY -= mouseValue.minusY*0.2;
+						}else if(mouseValue.minusX>=0&&mouseValue.minusY>=0){
+							mouseValue.roX -= mouseValue.minusX*0.2;
+							mouseValue.roY += mouseValue.minusY*0.2;
+							
+						}else{
+							mouseValue.roX -= mouseValue.minusX*0.2;
+							mouseValue.roY += mouseValue.minusY*0.2;
+							
+						}
+					
+					$('.cube').css({
+						
+						"transform":"translateZ(" + mouseValue.trZ + "px) rotateY(" + mouseValue.roY+"deg) rotateX(" + mouseValue.roX+"deg)"
+						})
+						mouseValue.lastX = mouseValue.nowX;	
+						mouseValue.lastY = mouseValue.nowY;	
+						
+						
+					
+					}
+					document.onmouseup=function(){
+					 
+						document.onmousemove = null;
+	
+					// alert(this)
+	          		
+					}
+		
+		}
+	}	
+	
+	
+
+	
+</script>
+</html>
