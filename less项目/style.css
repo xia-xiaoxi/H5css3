@@ -1,0 +1,37 @@
+.less {
+  color: #c1c;
+}
+.addless {
+  color: #ff33ff;
+}
+.doubleless {
+  color: #253;
+}
+header {
+  border-radius: 10px;
+}
+footer {
+  border-radius: 30px;
+}
+article {
+  box-shadow: inset 0px 0px 30px #f36;
+}
+.box {
+  display: inline;
+  float: left;
+}
+.box h1 {
+  font-size: 26px;
+  font-weight: bold;
+}
+.box h1 a {
+  text-decoration: none;
+  color: #f36;
+}
+.box h1 a:hover {
+  text-decoration: underline;
+  color: #63f;
+}
+.box p {
+  font-size: 12px;
+}

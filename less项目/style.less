@@ -1,0 +1,64 @@
+//sass定义变量
+//$a: ;
+
+//less定义变量
+//@a: ;
+
+@a:#c1c;//分号不能省
+.less{
+    color: @a;
+}
+
+//Less中的变量还具有计算功能
+
+@addcolor:@a+#a23;
+.addless{
+    color: @addcolor;
+}
+
+@color: #253;
+@highlight:"color";//相当于将@highlight重命名为color
+.doubleless{color: @@highlight;}//此处就相当于@color
+
+.roundborder(@radius:10px){//自定义一个圆角类
+    border-radius: @radius;
+}
+header{
+    .roundborder;//使用类
+}
+footer{
+    .roundborder(30px);//传值给自定义的border类
+}
+
+//@arguments。@arguments在Mixins中具是一个很特别的参数，当Mixins引用这个参数时，他将表示所有的变量，当你不想处理个别的参数时
+.boxShadow(@dest,@x:0,@y:0,@blur:1px,@color:#000){
+                  box-shadow: @arguments;
+                }
+    
+article{
+    .boxShadow(inset,0px,0px,30px,#f36);
+}
+
+.box{
+    display: inline;
+    float: left;
+    h1 {//没有&解析是后代元素
+        font-size: 26px;
+        font-weight: bold;
+        a {
+            text-decoration: none;
+            color: #f36;
+            &:hover {//有&时解析的是同一个元素或此元素的伪类
+                text-decoration: underline;
+                color: #63f;
+            }
+        }
+    }
+    p {
+        font-size: 12px;
+    }
+}
+
+
+
+
