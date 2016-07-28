@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="bootstrap.css"/>
+		<script src="vue.js"></script>
+		<script src="vue-router.js"></script>
+		<style>
+			td{border: 1px solid red;width: 100px;}
+		</style>
+	</head>
+	<body>
+		<div id="app">
+		    <my-component v-show="display">
+		    </my-component><!--然后在my-component标签上使用指令v-show="display"，这个display数据是来源于Vue实例，还是my-component组件呢？答案是Vue实例-->
+		</div>
+		<template id="myComponent">
+			<div>
+				<h2>{{msg}}</h2>
+				<button v-on:click="showMsg">Show Message</button>
+			</div>
+		</template>
+	</body>
+	<script>
+		/*父组件模板的内容在父组件作用域内编译；子组件模板的内容在子组件作用域内编译
+通俗地讲，在子组件中定义的数据，只能用在子组件的模板。在父组件中定义的数据，只能用在父组件的模板。如果父组件的数据要在子组件中使用，则需要子组件定义props*/
+	
+     new Vue({
+	    el: '#app',
+	    data: {
+	        display: true
+	    },
+	    components: {
+	        'my-component': {
+	            template: '#myComponent',
+	            data: function() {
+	                return {
+	                    msg: 'This is a component!',
+	                    display: false
+	                }
+	            },
+	            methods: {
+	                showMsg: function() {
+	                    alert(this.msg)
+	                }
+	            }
+	        }
+	    }
+	})
+
+		
+	</script>
+</html>

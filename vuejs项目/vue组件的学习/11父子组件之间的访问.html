@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="bootstrap.css"/>
+		<script src="vue.js"></script>
+		<script src="vue-router.js"></script>
+		<style>
+			td{border: 1px solid red;width: 100px;}
+		</style>
+	</head>
+	<body>
+		<div id="app">
+		    <parent-component></parent-component>
+		</div>
+		
+		<template id="parent-component">
+		    <child-component1></child-component1>
+		    <child-component2></child-component2>
+		    <button v-on:click="showChildComponentData">显示子组件的数据</button>
+		</template>
+		
+		<template id="child-component1">
+		    <h2>This is child component 1</h2>
+		</template>
+		
+		<template id="child-component2">
+		    <h2>This is child component 2</h2>
+		</template>
+
+	</body>
+	
+	<script>
+		/*父组件访问子组件：使用$children或$refs，子组件访问父组件：使用$parent子组件，访问根组件：使用$root*/
+		 Vue.component('parent-component', {
+	        template: '#parent-component',
+	        components: {
+	            'child-component1': {
+	                template: '#child-component1',
+	                data: function() {
+	                    return {
+	                        msg: 'child component 111111'
+	                    }
+	                }
+	            },
+	            'child-component2': {
+	                template: '#child-component2',
+	                data: function() {
+	                    return {
+	                        msg: 'child component 222222'
+	                    }
+	                }
+	            }
+	        },
+	        methods: {
+	            showChildComponentData: function() {
+	                for (var i = 0; i < this.$children.length; i++) {
+	                    alert(this.$children[i].msg)
+	                }
+	            }
+	        }
+	    })
+	
+	    new Vue({
+	        el: '#app'
+	    })
+	    
+	/*注意：尽管可以访问父链上任意的实例，不过子组件应当避免直接依赖父组件的数据，尽量显式地使用 props 传递数据。另外，在子组件中修改父组件的状态是非常糟糕的做法，因为： 
+	1.这让父组件与子组件紧密地耦合； 
+	2. 只看父组件，很难理解父组件的状态。因为它可能被任意子组件修改！理想情况下，只有组件自己能修改它的状态。*/
+		
+	</script>
+</html>
